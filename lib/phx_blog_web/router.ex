@@ -16,7 +16,7 @@ defmodule PhxBlogWeb.Router do
   scope "/", PhxBlogWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    resources "/", ArticleController
   end
 
   # Other scopes may use custom stacks.
