@@ -56,3 +56,7 @@ config :phx_blog, PhxBlog.Repo,
   database: "phx_blog_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :phx_blog, PhxBlog.Auth.Guardian,
+  issuer: "phx_blog",
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
