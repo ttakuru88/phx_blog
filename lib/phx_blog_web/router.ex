@@ -19,8 +19,9 @@ defmodule PhxBlogWeb.Router do
     resources "/", ArticleController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", PhxBlogWeb do
-  #   pipe_through :api
-  # end
+  scope "/admin", PhxBlogWeb.Admin, as: :admin do
+    pipe_through :browser
+
+    resources "/articles", ArticleController, only: [:index]
+  end
 end
