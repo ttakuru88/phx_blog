@@ -2,7 +2,6 @@ defmodule PhxBlogWeb.Admin.ArticleController do
   use PhxBlogWeb, :controller
 
   alias PhxBlog.Articles
-  alias PhxBlog.Articles.Article
 
   plug :put_layout, "admin.html"
 

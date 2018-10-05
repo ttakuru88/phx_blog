@@ -2,7 +2,6 @@ defmodule PhxBlog.Admins.Admin do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "admins" do
     field :email, :string
     field :password_hash, :string
