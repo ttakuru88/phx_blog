@@ -19,6 +19,11 @@ defmodule PhxBlog.Auth do
     |> Guardian.Plug.sign_out()
   end
 
+  def load_current_admin(conn, _) do
+    conn
+    |> Plug.Conn.assign(:current_admin, Guardian.Plug.current_resource(conn))
+  end
+
   defp check_password(nil, _) do
     {:error, "メールアドレスが違うわ"}
   end
