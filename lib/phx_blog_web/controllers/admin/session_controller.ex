@@ -10,7 +10,16 @@ defmodule PhxBlogWeb.Admin.SessionController do
   end
 
   def create(conn, %{"admin" => %{"email" => email, "password" => password}}) do
-    conn
-    |> render("new.html", changeset: Admins.login_admin(%Admin{email: email}))
+    case PhxBlog.Auth.authenticate_admin(email, password) do
+      {:ok, admin} ->
+        conn
+        |> PhxBlog.Auth.login(admin)
+        |> put_flash(:info, "ログインしたぞ")
+        |> redirect(to: admin_article_path(conn, :index))
+      {:error, reason} ->
+        conn
+        |> put_flash(:error, reason)
+        |> render("new.html", changeset: Admins.login_admin(%Admin{email: email}))
+    end
   end
 end

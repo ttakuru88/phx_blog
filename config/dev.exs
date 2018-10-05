@@ -58,5 +58,6 @@ config :phx_blog, PhxBlog.Repo,
   pool_size: 10
 
 config :phx_blog, PhxBlog.Auth.Guardian,
+  verify_module: Guardian.JWT,
   issuer: "phx_blog",
-  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+  secret_key: "2De2FYNHvUn7+jHaW2pDkYMeXECmPl91v8kbb5JUbDYS+kmdkWhr3mfoz5L5oydF"

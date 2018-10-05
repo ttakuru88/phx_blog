@@ -9,25 +9,29 @@ defmodule PhxBlogWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :admin_session do
-    plug Guardian.Plug.VerifySession
-    plug Guardian.Plug.LoadResource
-  end
-
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug PhxBlog.Auth.AuthAccessPipeline
+  end
+
   scope "/", PhxBlogWeb do
-    pipe_through [:browser]
+    pipe_through :browser
 
     resources "/", ArticleController
   end
 
   scope "/admin", PhxBlogWeb.Admin, as: :admin do
-    pipe_through [:browser, :admin_session]
+    pipe_through [:browser, :auth]
 
     resources "/articles", ArticleController, only: [:index]
+  end
+
+  scope "/admin", PhxBlogWeb.Admin, as: :admin do
+    pipe_through :browser
+
     get "/login", SessionController, :new, as: :login
     post "/login", SessionController, :create, as: :login
   end
