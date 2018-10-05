@@ -22,4 +22,11 @@ defmodule PhxBlogWeb.Admin.SessionController do
         |> render("new.html", changeset: Admins.login_admin(%Admin{email: email}))
     end
   end
+
+  def delete(conn, _) do
+    conn
+    |> PhxBlog.Auth.logout()
+    |> put_flash(:info, "ログアウトしたぞ")
+    |> redirect(to: admin_login_path(conn, :new))
+  end
 end

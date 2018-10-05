@@ -17,6 +17,7 @@
         <nav role="navigation">
           <ul class="nav nav-pills">
             <li><%= link "記事管理", to: admin_article_path(@conn, :index) %> </li>
+            <li><%= link "ログアウト", to: admin_logout_path(@conn, :delete), method: :delete %> </li>
           </ul>
         </nav>
       </header>
