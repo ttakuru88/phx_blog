@@ -1,8 +1,10 @@
 defmodule PhxBlog.Auth.AuthErrorHandler do
-  import Plug.Conn
+  import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
+  import PhxBlogWeb.Router.Helpers, only: [admin_login_path: 2]
 
-  def auth_error(conn, {type, reason}, _opts) do
-    body = Poison.encode!(%{message: to_string(type)})
-    send_resp(conn, 401, body)
+  def auth_error(conn, {type, _reason}, _opts) do
+    conn
+    |> put_flash(:error, to_string(type))
+    |> redirect(to: admin_login_path(conn, :new))
   end
 end
