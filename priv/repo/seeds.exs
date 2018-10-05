@@ -9,3 +9,13 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+# PhxBlog.Repo.insert!(%PhxBlog.Admins.Admin{
+#   email: "admin@example.com",
+#   password: "awefawef"
+# })
+
+PhxBlog.Admins.create_or_update_admin(%{
+  email: "admin@example.com",
+  password: "awefawef"
+})
