@@ -11,6 +11,7 @@ defmodule PhxBlog.Auth do
   def login(conn, admin) do
     conn
     |> Guardian.Plug.sign_in(admin)
+    |> Guardian.Plug.remember_me(admin)
     |> Plug.Conn.assign(:current_admin, admin)
   end
 
