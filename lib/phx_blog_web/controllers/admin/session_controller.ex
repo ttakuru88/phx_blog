@@ -15,7 +15,7 @@ defmodule PhxBlogWeb.Admin.SessionController do
         conn
         |> PhxBlog.Auth.login(admin)
         |> put_flash(:info, "ログインしたぞ")
-        |> redirect(to: admin_article_path(conn, :index))
+        |> redirect(to: admin_root_path(conn, :index))
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)

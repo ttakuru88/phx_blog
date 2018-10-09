@@ -17,16 +17,10 @@ defmodule PhxBlogWeb.Router do
     plug PhxBlog.Auth.AuthAccessPipeline
   end
 
-  scope "/", PhxBlogWeb do
-    pipe_through :browser
-
-    resources "/", ArticleController
-  end
-
   scope "/admin", PhxBlogWeb.Admin, as: :admin do
     pipe_through [:browser, :auth]
 
-    resources "/articles", ArticleController, only: [:index]
+    get "/", ArticleController, :index, as: :root
     delete "/logout", SessionController, :delete, as: :logout
   end
 
@@ -35,5 +29,11 @@ defmodule PhxBlogWeb.Router do
 
     get "/login", SessionController, :new, as: :login
     post "/login", SessionController, :create, as: :login
+  end
+
+  scope "/", PhxBlogWeb do
+    pipe_through :browser
+
+    resources "/", ArticleController, only: [:index]
   end
 end
