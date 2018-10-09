@@ -22,9 +22,16 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :phx_blog, PhxBlog.Auth.AuthAccessPipeline,
+config :phx_blog, PhxBlog.Auth.LoginSessionPipeline,
+  module: PhxBlog.Auth.Guardian
+
+config :phx_blog, PhxBlog.Auth.EnsureAuthPipeline,
   module: PhxBlog.Auth.Guardian,
-  error_handler: PhxBlog.Auth.AuthErrorHandler
+  error_handler: PhxBlog.Auth.EnsureAuthErrorHandler
+
+config :phx_blog, PhxBlog.Auth.EnsureNotAuthPipeline,
+  module: PhxBlog.Auth.Guardian,
+  error_handler: PhxBlog.Auth.EnsureNotAuthErrorHandler
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

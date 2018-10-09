@@ -10,7 +10,7 @@ defmodule PhxBlog.Auth.Guardian do
 
   def resource_from_claims(claims) do
     id = claims["sub"]
-    user = Admins.get_admin(id)
-    {:ok, user}
+    admin = Admins.get_admin(id)
+    {:ok, admin}
   end
 end

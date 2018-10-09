@@ -13,26 +13,34 @@ defmodule PhxBlogWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :auth do
-    plug PhxBlog.Auth.AuthAccessPipeline
+  pipeline :login_session do
+    plug PhxBlog.Auth.LoginSessionPipeline
+  end
+
+  pipeline :ensure_auth do
+    plug PhxBlog.Auth.EnsureAuthPipeline
+  end
+
+  pipeline :ensure_not_auth do
+    plug PhxBlog.Auth.EnsureNotAuthPipeline
   end
 
   scope "/admin", PhxBlogWeb.Admin, as: :admin do
-    pipe_through [:browser, :auth]
+    pipe_through [:browser, :login_session, :ensure_auth]
 
     get "/", ArticleController, :index, as: :root
     delete "/logout", SessionController, :delete, as: :logout
   end
 
   scope "/admin", PhxBlogWeb.Admin, as: :admin do
-    pipe_through :browser
+    pipe_through [:browser, :login_session, :ensure_not_auth]
 
     get "/login", SessionController, :new, as: :login
     post "/login", SessionController, :create, as: :login
   end
 
   scope "/", PhxBlogWeb do
-    pipe_through :browser
+    pipe_through [:browser, :login_session]
 
     resources "/", ArticleController, only: [:index]
   end
