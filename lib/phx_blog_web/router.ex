@@ -29,6 +29,7 @@ defmodule PhxBlogWeb.Router do
     pipe_through [:browser, :login_session, :ensure_auth]
 
     get "/", ArticleController, :index, as: :root
+    resources "/articles", ArticleController, only: [:index, :new, :create]
     delete "/logout", SessionController, :delete, as: :logout
   end
 

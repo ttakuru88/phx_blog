@@ -1,0 +1,3 @@
+<p>
+  <%= link "記事作成", to: admin_article_path(@conn, :new) %>
+</p>

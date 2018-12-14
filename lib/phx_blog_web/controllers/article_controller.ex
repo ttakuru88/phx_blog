@@ -9,21 +9,6 @@ defmodule PhxBlogWeb.ArticleController do
     render(conn, "index.html", articles: articles)
   end
 
-  # def new(conn, _params) do
-  #   changeset = Articles.change_article(%Article{})
-  #   render(conn, "new.html", changeset: changeset)
-  # end
-  #
-  # def create(conn, %{"article" => article_params}) do
-  #   case Articles.create_article(article_params) do
-  #     {:ok, article} ->
-  #       conn
-  #       |> put_flash(:info, "Article created successfully.")
-  #       |> redirect(to: article_path(conn, :show, article))
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "new.html", changeset: changeset)
-  #   end
-  # end
   #
   # def show(conn, %{"id" => id}) do
   #   article = Articles.get_article!(id)
