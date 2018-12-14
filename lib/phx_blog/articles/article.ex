@@ -6,6 +6,7 @@ defmodule PhxBlog.Articles.Article do
   schema "articles" do
     field :body, :string
     field :title, :string
+    field :image, :string , virtual: true
 
     timestamps()
   end

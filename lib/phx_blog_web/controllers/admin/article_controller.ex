@@ -4,6 +4,7 @@ defmodule PhxBlogWeb.Admin.ArticleController do
   alias PhxBlog.Articles
   alias PhxBlog.Articles.Article
 
+  require Logger
   plug :put_layout, "admin.html"
 
   import PhxBlog.Auth, only: [load_current_admin: 2]
@@ -22,6 +23,16 @@ defmodule PhxBlogWeb.Admin.ArticleController do
   def create(conn, %{"article" => article_params}) do
     case Articles.create_article(article_params) do
       {:ok, article} ->
+        if upload = article_params["image"] do
+          extension = Path.extname(upload.filename)
+          case File.cp(upload.path, "#{Application.app_dir(:phx_blog, "priv")}/uploads/article-#{article.id}#{extension}") do
+            {:error, reason} ->
+              Logger.info(reason)
+            :ok ->
+              Logger.info("OK")
+          end
+        end
+
         conn
         |> put_flash(:info, "記事を作ったぞ")
         |> redirect(to: admin_article_path(conn, :index))
