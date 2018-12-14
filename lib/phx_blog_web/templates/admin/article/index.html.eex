@@ -1,3 +1,10 @@
 <p>
   <%= link "記事作成", to: admin_article_path(@conn, :new) %>
 </p>
+
+<h2>記事一覧</h2>
+
+<%= for article <- @articles do %>
+  <h3><%= article.title %></h3>
+  <p><%= text_to_html article.body %></p>
+<% end %>
